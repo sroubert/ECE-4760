@@ -103,14 +103,35 @@
     </div>
     <script>
         var svg = d3.select("#testCircle").append("svg")
-            .attr("height", 100)
-            .attr("width", 100);
+            .attr("height", 1000)
+            .attr("width", 1000);
 
         svg.append("circle")
             .attr("r", 10)
-            .attr("cx", 50) // parens -- VALUE of function call
-            .attr("cy", 50) // NO parens -- function itself
+            .attr("cx", 500) // parens -- VALUE of function call
+            .attr("cy", 500) // NO parens -- function itself
+            .attr("id", "circle")
             .style("fill", "red");
+
+        var inter = setInterval(function () {
+            updateData();
+        }, 1000);
+
+        var csvData;
+
+        function updateData() {
+            d3.csv("data.csv", function (error, data) {
+                var circle = d3.select("#circle");
+                csvData = data;
+                //console.log(data[0]);
+
+                circle.attr("r", data.columns[0]);
+
+
+
+
+            });
+        }
     </script>
 
 </body>
