@@ -36,7 +36,8 @@ try:
 		if ( data[val-1] == 10 ):
 			decodedData = decodedData + data[0:val-1].decode('utf-8', "ignore")
 			print( p, "Received: ", (decodedData))
-			writeToFile([(decodedData)])
+			l = len(str(decodedData)) - 1
+			writeToFile([int(decodedData)/10**l])
 			sys.stdout.flush()
 		else:
 
@@ -56,7 +57,7 @@ try:
 
 				p = 'D'
 
-			decodedData = data[0:val-1].decode('utf-8', "ignore")
+			decodedData = data[1:val-1].decode('utf-8', "ignore")
 
 		#print("Beginning: ", data[0])
 
