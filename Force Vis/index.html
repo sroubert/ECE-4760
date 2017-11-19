@@ -116,17 +116,25 @@
 
         var inter = setInterval(function () {
             updateData();
-        }, 1000);
+        }, 100);
 
         var csvData;
 
         function updateData() {
             d3.csv("data.csv", function (error, data) {
-                var circle = d3.select("#circle");
-                csvData = data;
-                //console.log(data[0]);
 
-                circle.attr("r", csvData.columns[0]);
+                if (!error) {
+
+                    var circle = d3.select("#circle");
+                    csvData = data;
+                    //console.log(data[0]);
+
+                    circle.attr("r", csvData.columns[0]);
+
+
+                }
+
+
 
 
 
