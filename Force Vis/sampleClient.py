@@ -6,13 +6,17 @@ import sys
 def writeToFile( data1 ):
 
 	#path1 = r"C:\Users\Jonah\OneDrive - Cornell University\Fall 2017\ECE 4760\Final Project\Server\ "
-	try:
-		with open('data.csv', 'w',  newline='') as f:
+	while True:
+		try:
+			with open('data.csv', 'w',  newline='') as f:
 
-			writer = csv.writer(f, delimiter=',')
-			writer.writerow(data1) 
-	except:
-		print("Data not written")
+				writer = csv.writer(f, delimiter=',')
+				writer.writerow(data1) 
+			break
+		except:
+			#print("Data not written")
+			break
+			print( "Trying again..")
 
 # Mac address of the HC-06:
 macAddress = '98:d3:31:fd:31:27'
