@@ -79,13 +79,15 @@ try:
 			print( p, "Received: ", (decodedData))
 			l = len(str(decodedData)) - 2
 			#writeToFile([int(decodedData)/10**l])
-			jsonData['sensorData'].append({'Sensor1' : (decodedData)})
+			jsonData['sensorData'].append({'Sensor1' : int(decodedData)})
 			writeToFile1(jsonData)
 			sys.stdout.flush()
 
 			time.sleep(0.1)
 
 		else:
+
+			jsonData['sensorData'][]
 
 			if (data[0] == 97):
 
