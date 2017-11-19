@@ -30,6 +30,7 @@ def writeToFile1( data1 ):
 				#writer = csv.writer(f, delimiter=',')
 				#writer.writerow(data1) 
 				f.seek(0,0)
+				f.truncate()
 				json.dump( data1, f)
 			break
 		except:
