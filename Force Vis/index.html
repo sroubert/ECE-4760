@@ -108,7 +108,7 @@
     <script type="text/javascript">
         window.addEventListener('error', function (e) {
             //console.log(e);
-            dontRun = 1;
+            dontRun += 1;
         }, true);
     </script>
 
@@ -171,7 +171,9 @@
 
 
             }
-            dontRun = 0;
+            if (dontRun) {
+                dontRun -= 1;
+            }
         }
     </script>
 
