@@ -3,12 +3,10 @@
 
 <head>
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab|Lato|Rokkitt" rel="stylesheet">
-    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-    <script src="http://d3js.org/topojson.v2.min.js"></script>
+    <!---script src="http://d3js.org/topojson.v2.min.js"></script-->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="http://d3js.org/topojson.v2.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+    <!---script src="http://d3js.org/topojson.v2.min.js"></script-->
     <style>
         body {
             font-family: 'Rokkitt', serif;
@@ -120,7 +118,15 @@
 
         var csvData;
 
+        var file = new File("data.csv");
+        var result = file.open('r');
+
         function updateData() {
+
+            if file.exists {
+                console.log("file exists");
+            }
+
             d3.csv("data.csv", function (error, data) {
 
                 if (!error) {
