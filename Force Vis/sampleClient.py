@@ -2,6 +2,7 @@ import bluetooth
 import csv
 import time
 import sys
+import json
 
 def writeToFile( data1 ):
 
@@ -18,6 +19,22 @@ def writeToFile( data1 ):
 			break
 			print( "Trying again..")
 
+def writeToFile1( data1 ):
+
+	#path1 = r"C:\Users\Jonah\OneDrive - Cornell University\Fall 2017\ECE 4760\Final Project\Server\ "
+	while True:
+		try:
+			with open('data.txt', 'w' ) as f:
+
+				#writer = csv.writer(f, delimiter=',')
+				#writer.writerow(data1) 
+				json.dump( data1, f)
+			break
+		except:
+			#print("Data not written")
+			break
+			print( "Trying again..")
+
 # Mac address of the HC-06:
 macAddress = '98:d3:31:fd:31:27'
 port = 1 
@@ -26,6 +43,26 @@ port = 1
 s = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 s.connect((macAddress,port))
 
+"""
+data = {}  
+data['sensorData'] = []  
+data['people'].append({  
+    'Sensor 1': 'Scott',
+})
+data['sensorD'].append({  
+    'name': 'Larry',
+    'website': 'google.com',
+    'from': 'Michigan'
+})
+data['people'].append({  
+    'name': 'Tim',
+    'website': 'apple.com',
+    'from': 'Alabama'
+})
+"""
+
+jsonData = {}
+jsonData['sensorData'] = []
 
 try:
 
@@ -41,7 +78,9 @@ try:
 			decodedData = decodedData + data[0:val-1].decode('utf-8', "ignore")
 			print( p, "Received: ", (decodedData))
 			l = len(str(decodedData)) - 2
-			writeToFile([int(decodedData)/10**l])
+			#writeToFile([int(decodedData)/10**l])
+			jsonData['sensorData'].append({'Sensor1' : (decodedData)})
+			writeToFile1(jsonData)
 			sys.stdout.flush()
 
 			time.sleep(0.1)
