@@ -67,6 +67,7 @@ try:
 			decodedData = data[1:val-1].decode('utf-8', "ignore")
 
 		#print("Beginning: ", data[0])
+		print( data ) 
 
 except Exception as e:
 	print( "Error was thrown:   " + str(e) )
