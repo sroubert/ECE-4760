@@ -24,7 +24,7 @@ def writeToFile1( data1 ):
 	#path1 = r"C:\Users\Jonah\OneDrive - Cornell University\Fall 2017\ECE 4760\Final Project\Server\ "
 	while True:
 		try:
-			with open('data.txt', 'w' ) as f:
+			with open('data.txt', 'a' ) as f:
 
 				#writer = csv.writer(f, delimiter=',')
 				#writer.writerow(data1) 
@@ -87,7 +87,7 @@ try:
 
 		else:
 
-			jsonData['sensorData'][]
+			#jsonData['sensorData'][]
 
 			if (data[0] == 97):
 
