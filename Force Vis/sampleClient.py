@@ -36,9 +36,12 @@ try:
 		if ( data[val-1] == 10 ):
 			decodedData = decodedData + data[0:val-1].decode('utf-8', "ignore")
 			print( p, "Received: ", (decodedData))
-			l = len(str(decodedData)) - 1
+			l = len(str(decodedData)) - 2
 			writeToFile([int(decodedData)/10**l])
 			sys.stdout.flush()
+
+			time.sleep(0.1)
+
 		else:
 
 			if (data[0] == 97):

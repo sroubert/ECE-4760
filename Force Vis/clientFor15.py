@@ -9,7 +9,7 @@ def writeToFile( data1 ):
 
 	#path1 = r"C:\Users\Jonah\OneDrive - Cornell University\Fall 2017\ECE 4760\Final Project\Server\ "
 	try:
-		with open('data1.csv', 'w',  newline='') as f:
+		with open('data15.csv', 'w',  newline='') as f:
 
 			writer = csv.writer(f, delimiter=',')
 			writer.writerow(data1) 
@@ -38,7 +38,14 @@ try:
 			decodedData = decodedData + data[0:val-1].decode('utf-8', "ignore")
 			#print( "Decoded Data: " + str(decodedData) )
 			rayData = str(decodedData).split()
-			print( "Data: ", str(decodedData).split())
+			#print( "Data: ", str(decodedData).split())
+
+			for i in range(len(rayData)):
+
+				l = 
+				p = rayData[0][0]
+				num = rayData[0][]
+
 			decodedData = ""
 
 		else:
