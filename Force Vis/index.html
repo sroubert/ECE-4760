@@ -116,27 +116,31 @@
             updateData();
         }, 100);
 
-        var csvData;
+        var jsonData;
 
-        var file = new File("data.csv");
-        var result = file.open('r');
+        // var file = new File("data.csv");
+        //var result = file.open('r');
 
         function updateData() {
-
-            if (file.exists) {
-                console.log("file exists");
-            }
-
-            d3.csv("data.csv", function (error, data) {
+            /*
+                        if (file.exists) {
+                            console.log("file exists");
+                        }
+            */
+            d3.json("data.txt", function (error, data) {
 
                 if (!error) {
+                    jsonData = data;
+                    //console.log(data[0])
+
+                    var dataLength = jsonData.sensorData.length;
 
                     var circle = d3.select("#circle");
-                    csvData = data;
+                    //csvData = data;
                     //console.log(data[0]);
 
-                    circle.attr("r", csvData.columns[0]);
-                    console.log(csvData.columns[0])
+                    circle.attr("r", jsonData.sensorData[dataLength - 1].Sensor1);
+
 
                 }
 
