@@ -63,6 +63,7 @@ data['people'].append({
 
 jsonData = {}
 jsonData['sensorData'] = []
+jsonData['sensorData'].append({'Sensor1' : 0 })
 
 try:
 

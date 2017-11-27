@@ -36,15 +36,17 @@ try:
 		if (data[val-1] == 10):
 
 			decodedData = decodedData + data[0:val-1].decode('utf-8', "ignore")
-			#print( "Decoded Data: " + str(decodedData) )
+			print( "Decoded Data: " + str(decodedData) )
 			rayData = str(decodedData).split()
 			#print( "Data: ", str(decodedData).split())
 
+			"""
 			for i in range(len(rayData)):
-
-				l = 
-				p = rayData[0][0]
-				num = rayData[0][]
+				decodedData = decodedData
+				#l = 
+				#p = rayData[0][0]
+				#num = rayData[0][]
+			"""
 
 			decodedData = ""
 
