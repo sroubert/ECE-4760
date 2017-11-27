@@ -14,8 +14,9 @@ def writeToFile( data1 ):
 				writer = csv.writer(f, delimiter=',')
 				writer.writerow(data1) 
 			break
-		except:
+		except Exception as e:
 			#print("Data not written")
+			print(e)
 			break
 			print( "Trying again..")
 
@@ -24,10 +25,12 @@ def writeToFile1( data1 ):
 	#path1 = r"C:\Users\Jonah\OneDrive - Cornell University\Fall 2017\ECE 4760\Final Project\Server\ "
 	while True:
 		try:
-			with open('data.txt', 'a' ) as f:
+			with open('data.txt', 'r+' ) as f:
 
 				#writer = csv.writer(f, delimiter=',')
 				#writer.writerow(data1) 
+				f.seek(0,0)
+				f.truncate()
 				json.dump( data1, f)
 			break
 		except:
@@ -83,6 +86,11 @@ try:
 			jsonData['sensorData'].append({'Sensor1' : int(decodedData)})
 			writeToFile1(jsonData)
 			sys.stdout.flush()
+			print( "Json Data:" , jsonData)
+
+			jsonData = {}
+			json.dumps(jsonData)
+			jsonData['sensorData'] = []
 
 			time.sleep(0.1)
 
@@ -109,7 +117,7 @@ try:
 			decodedData = data[1:val-1].decode('utf-8', "ignore")
 
 		#print("Beginning: ", data[0])
-		print( data ) 
+		#print( data ) 
 
 except Exception as e:
 	print( "Error was thrown:   " + str(e) )
