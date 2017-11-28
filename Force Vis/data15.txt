@@ -1,0 +1,1 @@
+{"sensorData": [{"Sensor1": 2}, {"Sensor2": 1}, {"Sensor3": 0}, {"Sensor4": 0}, {"Sensor5": 600000}, {"Sensor6": 739}, {"Sensor7": 5953}, {"Sensor8": 4463}, {"Sensor9": 89}, {"Sensor10": 90}, {"Sensor11": 91}, {"Sensor12": 92}, {"Sensor13": 93}, {"Sensor14": 94}, {"Sensor15": 95}]}
