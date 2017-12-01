@@ -39,10 +39,12 @@
         }
         
         #logo {
-            width: 50%;
+            width: 500;
             margin: 0px;
             padding: 0px;
             text-align: center;
+            position: relative;
+            z-index: -1;
         }
         
         h1 {
@@ -75,7 +77,7 @@
     </div>
 
     <div id="hand">
-        <img src="handImage.jpg" id="logo">
+        <!--  <img src="handImage.jpg" id="logo"> -->
     </div>
 
 
@@ -95,20 +97,48 @@
     </script>
 
     <script>
-        var svg = d3.select("#testCircle").append("svg")
-            .attr("height", 1000)
-            .attr("width", 1000);
+        var svg = d3.select("#hand").append("svg")
+            .attr("width", function (d) {
+                return 500;
+            })
+            .attr("height", function (d) {
+                return 530;
+            });
 
-        svg.append("circle")
-            .attr("r", 10)
-            .attr("cx", 500) // parens -- VALUE of function call
-            .attr("cy", 500) // NO parens -- function itself
-            .attr("id", "circle")
-            .style("fill", "red");
+        svg.append("image")
+            .attr("xlink:href", "handImage.jpg")
+            .attr("height", 530)
+            .attr("width", 500);
 
-        var inter = setInterval(function () {
-            updateData();
-        }, 100);
+        var xCenter = [70, 180, 253, 325, 397,
+                      185, 250, 325, 390,
+                      225, 285, 355, 250, 315,
+                      285];
+
+        var yCenter = [230, 70, 50, 70, 120,
+                      230, 230, 230, 230,
+                      285, 285, 285, 325, 325,
+                      365];
+
+        for (i = 1; i < 16; i++) {
+            svg.append("circle")
+                .attr("r", 10)
+                .attr("cx", xCenter[i - 1])
+                .attr("cy", yCenter[i - 1])
+                .attr("id", function (d) {
+                    var str1 = "Sensor";
+                    var str2 = i.toString();
+
+                    return str1.concat(str2);
+                })
+                .attr("z-index", 1)
+                .style("fill", "red");
+
+        }
+
+        /*        var inter = setInterval(function () {
+                    updateData();
+                }, 100);*/
 
         var jsonData;
 
@@ -138,6 +168,7 @@
                         //console.log(data[0]);
 
                         circle.attr("r", jsonData.sensorData[dataLength - 1].Sensor1);
+                        circle.attr("z-index", 1);
 
 
                     }
