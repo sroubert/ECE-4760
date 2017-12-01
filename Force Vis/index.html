@@ -132,7 +132,16 @@
                     return str1.concat(str2);
                 })
                 .attr("z-index", 1)
-                .style("fill", "red");
+                .style("fill", function (d) {
+                    var rand = Math.floor(Math.random() * 255);
+                    if (i % 2 != 0) {
+                        var string = "rgb(" + rand + ",255,0)";
+                        return string;
+                    } else {
+                        var string = "rgb(255," + rand + ",0)";
+                        return string;
+                    }
+                });
 
         }
 
