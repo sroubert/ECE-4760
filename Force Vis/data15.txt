@@ -1,1 +1,1 @@
-{"sensorData": [{"Sensor1": 2}, {"Sensor2": 1}, {"Sensor3": 0}, {"Sensor4": 0}, {"Sensor5": 600000}, {"Sensor6": 739}, {"Sensor7": 5953}, {"Sensor8": 4463}, {"Sensor9": 89}, {"Sensor10": 90}, {"Sensor11": 91}, {"Sensor12": 92}, {"Sensor13": 93}, {"Sensor14": 94}, {"Sensor15": 95}]}
+{"sensorData": [{"Sensor1": 4}, {"Sensor2": 5}, {"Sensor3": 0}, {"Sensor4": 0}, {"Sensor5": 599413}, {"Sensor6": 1018}, {"Sensor7": 6000}, {"Sensor8": 6000}, {"Sensor9": 58}, {"Sensor10": 59}, {"Sensor11": 60}, {"Sensor12": 61}, {"Sensor13": 62}, {"Sensor14": 63}, {"Sensor15": 64}]}
