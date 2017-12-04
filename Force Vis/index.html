@@ -175,6 +175,12 @@
 
             var selectedCircle = d3.select("#".concat(sensorID));
 
+
+            if (sensor == "Sensor6") {
+
+                console.log("sensor 6 resistance is " + sensorData.R)
+            }
+
             selectedCircle
                 .transition()
                 .style("fill", function (d) {
@@ -189,10 +195,7 @@
 
         }
 
-        if (sensor == "Sensor6") {
 
-            console.log("sensor 6 resistance is " + sensorData.R)
-        }
 
         var largeResistanceToColor = d3.scaleLog()
             .domain([Math.log(200000), Math.log(10000)])
