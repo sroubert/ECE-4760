@@ -170,7 +170,7 @@
 
             var selectedCircle = d3.select("#".concat(sensorID));
 
-            selectedCircle.style("fill", resistanceToColor(sensorData.R));
+            selectedCircle.style("fill", resistanceToColor(Math.log(sensorData.R)));
 
             if (sensorID == "Sensor15") {
                 console.log(resistanceToColor(sensorData.R))
