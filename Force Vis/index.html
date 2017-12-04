@@ -197,11 +197,11 @@
 
 
 
-        var largeResistanceToColor = d3.scaleLog()
+        var largeResistanceToColor = d3.scaleLinear()
             .domain([Math.log(200000), Math.log(10000)])
             .range(["lime green", "yellow"])
 
-        var smallResistanceToColor = d3.scaleLog()
+        var smallResistanceToColor = d3.scaleLinear()
             .domain([Math.log(10000), Math.log(600)])
             .range(["yellow", "red"])
 
