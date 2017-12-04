@@ -145,9 +145,9 @@
 
         }
 
-        /*        var inter = setInterval(function () {
-                    updateData();
-                }, 100);*/
+        var inter = setInterval(function () {
+            updateData();
+        }, 100);
 
         var jsonData;
 
@@ -179,30 +179,31 @@
             .domain([700000, 600])
             .range(["green", "red"])
 
+        function updateData() {
 
-        d3.json("data15.txt", function (error, data) {
-
-
-            jsonData = data;
-
-            console.log(data)
-
-            data.sensorData.forEach(updateCircles);
+            d3.json("data15.txt", function (error, data) {
 
 
+                jsonData = data;
 
+                //console.log(data)
+
+                data.sensorData.forEach(updateCircles);
 
 
 
 
 
-            //dontRun = 0;
-        });
+
+
+
+                //dontRun = 0;
+            });
 
 
 
 
-        //   }
+        }
     </script>
 
 </body>
