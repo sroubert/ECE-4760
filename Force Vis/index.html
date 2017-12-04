@@ -172,7 +172,7 @@
 
             selectedCircle.style("fill", function (d) {
                 if (sensorData.R > 10000) {
-                    return largeResistanceToColoresistanceToColor(Math.log(sensorData.R));
+                    return largeResistanceToColor(Math.log(sensorData.R));
                 } else {
                     return smallResistanceToColor(Math.log(sensorData.R));
                 }
