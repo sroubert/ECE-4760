@@ -197,8 +197,8 @@
 
                     if (sensorData.R > 200000) {
                         return resistanceToColor(Math.log(200000));
-                    } else if (sensorData.R < 600) {
-                        return resistanceToColor(Math.log(600));
+                    } else if (sensorData.R < 3000) {
+                        return resistanceToColor(Math.log(3000));
                     } else {
                         return resistanceToColor(Math.log(sensorData.R));
                     };
@@ -210,7 +210,7 @@
 
 
         var resistanceToColor = d3.scaleLinear()
-            .domain([Math.log(200000), Math.log(10000), Math.log(600)])
+            .domain([Math.log(200000), Math.log(10000), Math.log(3000)])
             .range(["#32cd32", "yellow", "red"])
 
         var largeResistanceToColor = d3.scaleLinear()
