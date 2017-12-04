@@ -6,6 +6,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 
     <style>
@@ -165,7 +166,7 @@
             //if (file.exists) {
             updateData();
             // }
-        }, 100);
+        }, 50);
 
         function updateCircles(sensorData) {
 
@@ -194,7 +195,13 @@
                                             return smallResistanceToColor(Math.log(sensorData.R));
                                         }*/
 
-                    return resistanceToColor(Math.log(sensorData.R));
+                    if (sensorData.R > 200000) {
+                        return resistanceToColor(Math.log(200000));
+                    } else if (sensorData.R < 600) {
+                        return resistanceToColor(Math.log(600));
+                    } else {
+                        return resistanceToColor(Math.log(sensorData.R));
+                    };
 
                 });
 
