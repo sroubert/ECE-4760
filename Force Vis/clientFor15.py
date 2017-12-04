@@ -50,7 +50,7 @@ jsonData['sensorData'] = []
 try:
 
 	while True:
-		time.sleep(0.15)
+		time.sleep(0.1)
 		data = s.recv(1024)
 		#print( "Data:  " + str(data))
 		val = len(data)
@@ -70,10 +70,13 @@ try:
 				jsonData['sensorData'].append({'Sensor' : 'Sensor' + str(i+1),  'R' : int(num)})
 				#dataRay.append(num)
 
+			timin = time.time()
 			writeToFile1(jsonData)
+			timEnd = time.time()
 			sys.stdout.flush()
 			print( "Json Data:" , jsonData)
 			print("\n")
+			print("Duration: " + str(timEnd-timin) + "\n")
 			decodedData = ""
 			jsonData = {}
 			json.dumps(jsonData)
