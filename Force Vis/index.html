@@ -184,14 +184,17 @@
             selectedCircle
                 .transition()
                 .style("fill", function (d) {
-                    if (sensorData.R > 10000) {
-                        if (sensorID == "Sensor6") {
-                            console.log(largeResistanceToColor(Math.log(sensorData.R)))
-                        }
-                        return largeResistanceToColor(Math.log(sensorData.R));
-                    } else {
-                        return smallResistanceToColor(Math.log(sensorData.R));
-                    }
+                    /*                    if (sensorData.R > 10000) {
+                                            if (sensorID == "Sensor6") {
+                                                console.log(largeResistanceToColor(Math.log(sensorData.R)))
+                                            }
+                                            
+                                            return largeResistanceToColor(Math.log(sensorData.R));
+                                        } else {
+                                            return smallResistanceToColor(Math.log(sensorData.R));
+                                        }*/
+
+                    return resistanceToColor(Math.log(sensorData.R));
 
                 });
 
@@ -199,6 +202,9 @@
         }
 
 
+        var resistanceToColor = d3.scaleLinear()
+            .domain([Math.log(200000), Math.log(10000), Math.log(600)])
+            .range("#32cd32", "yellow", "red")
 
         var largeResistanceToColor = d3.scaleLinear()
             .domain([Math.log(200000), Math.log(10000)])
