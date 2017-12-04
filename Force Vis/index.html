@@ -172,14 +172,16 @@
 
             var selectedCircle = d3.select("#".concat(sensorID));
 
-            selectedCircle.style("fill", function (d) {
-                if (sensorData.R > 10000) {
-                    return largeResistanceToColor(Math.log(sensorData.R));
-                } else {
-                    return smallResistanceToColor(Math.log(sensorData.R));
-                }
+            selectedCircle
+                .transition()
+                .style("fill", function (d) {
+                    if (sensorData.R > 10000) {
+                        return largeResistanceToColor(Math.log(sensorData.R));
+                    } else {
+                        return smallResistanceToColor(Math.log(sensorData.R));
+                    }
 
-            });
+                });
 
 
         }
