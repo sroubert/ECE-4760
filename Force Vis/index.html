@@ -145,13 +145,9 @@
 
         }
 
-        var inter = setInterval(function () {
-            updateData();
-        }, 200);
-
         var jsonData;
 
-        // var file = new File("data.csv");
+        var file = new File("data15.txt");
         //var result = file.open('r');
 
         //  function updateData() {
@@ -161,6 +157,12 @@
                     }
         */
 
+        var inter = setInterval(function () {
+
+            if (file.exists) {
+                updateData();
+            }
+        }, 100);
 
         function updateCircles(sensorData) {
 
