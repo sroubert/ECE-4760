@@ -204,7 +204,10 @@
 
 
                 console.log(typeof (data))
-                data.sensorData.forEach(updateCircles);
+
+                if (typeof (data) != "undefined") {
+                    data.sensorData.forEach(updateCircles);
+                }
 
 
 
