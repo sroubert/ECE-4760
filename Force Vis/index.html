@@ -178,7 +178,7 @@
         }
 
 
-        var resistanceToColor = d3.scaleLinear()
+        var resistanceToColor = d3.scaleLog()
             .domain([700000, 600])
             .range(["green", "red"])
 
