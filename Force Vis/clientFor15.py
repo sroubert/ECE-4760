@@ -67,7 +67,7 @@ try:
 				#l = 
 				p = rayData[0][0]
 				num = rayData[i][1:]
-				jsonData['sensorData'].append({'Sensor' + str(i+1) : int(num)})
+				jsonData['sensorData'].append({'Sensor' : 'Sensor' + str(i+1),  'R' : int(num)})
 				#dataRay.append(num)
 
 			writeToFile1(jsonData)
