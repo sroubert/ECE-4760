@@ -50,7 +50,7 @@ jsonData['sensorData'] = []
 try:
 
 	while True:
-		time.sleep(0.1)
+		time.sleep(0.15)
 		data = s.recv(1024)
 		#print( "Data:  " + str(data))
 		val = len(data)
