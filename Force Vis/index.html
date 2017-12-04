@@ -179,7 +179,7 @@
 
             if (sensorID == "Sensor6") {
 
-                console.log("sensor 6 resistance is " + sensorData.R)
+                //console.log("sensor 6 resistance is " + sensorData.R)
             }
 
             selectedCircle
@@ -224,6 +224,9 @@
 
         function updateData() {
 
+            var d = new Date();
+            var n = d.getTime();
+
             d3.json("data15.txt", function (error, data) {
 
 
@@ -231,7 +234,7 @@
                 jsonData = data;
 
 
-                console.log(typeof (data))
+                //console.log(typeof (data))
 
                 if (typeof (data) != "undefined") {
                     data.sensorData.forEach(updateCircles);
@@ -248,7 +251,11 @@
                 //dontRun = 0;
             });
 
+            var d1 = new Date();
+            var n1 = d.getTime();
 
+
+            console.log(n1 - n)
 
 
         }
