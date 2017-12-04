@@ -147,7 +147,7 @@
 
         var jsonData;
 
-        var file = new File("data15.txt");
+        // var file = new File("data15.txt");
         //var result = file.open('r');
 
         //  function updateData() {
@@ -159,9 +159,9 @@
 
         var inter = setInterval(function () {
 
-            if (file.exists) {
-                updateData();
-            }
+            //if (file.exists) {
+            updateData();
+            // }
         }, 100);
 
         function updateCircles(sensorData) {
@@ -199,9 +199,11 @@
             d3.json("data15.txt", function (error, data) {
 
 
+
                 jsonData = data;
 
 
+                console.log(typeof (data))
                 data.sensorData.forEach(updateCircles);
 
 
