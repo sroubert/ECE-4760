@@ -170,17 +170,27 @@
 
             var selectedCircle = d3.select("#".concat(sensorID));
 
-            selectedCircle.style("fill", resistanceToColor(Math.log(sensorData.R)));
+            selectedCircle.style("fill", function (d) {
+                if (sensorData.R > 10000) {
+                    return largeResistanceToColoresistanceToColor(Math.log(sensorData.R));
+                } else {
+                    return smallResistanceToColor(Math.log(sensorData.R);)
+                }
 
-            if (sensorID == "Sensor15") {
-                console.log(resistanceToColor(sensorData.R))
-            }
+            });
+
+
         }
 
 
-        var resistanceToColor = d3.scaleLog()
-            .domain([Math.log(200000), Math.log(600)])
-            .range(["green", "red"])
+        var largeResistanceToColor = d3.scaleLog()
+            .domain([Math.log(200000), Math.log(10000)])
+            .range(["green", "yellow"])
+
+        var smallResistanceToColor = d3.scaleLog()
+            .domain([Math.log(10000), Math.log(600)])
+            .range(["yellow", "red"])
+
 
         function updateData() {
 
@@ -189,7 +199,6 @@
 
                 jsonData = data;
 
-                //console.log(data)
 
                 data.sensorData.forEach(updateCircles);
 
