@@ -204,7 +204,7 @@
 
         var resistanceToColor = d3.scaleLinear()
             .domain([Math.log(200000), Math.log(10000), Math.log(600)])
-            .range("#32cd32", "yellow", "red")
+            .range(["#32cd32", "yellow", "red"])
 
         var largeResistanceToColor = d3.scaleLinear()
             .domain([Math.log(200000), Math.log(10000)])
