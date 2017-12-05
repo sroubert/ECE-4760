@@ -94,7 +94,7 @@
     </div>
 
 
-    <button type="button" id="toggle">Freeze Vis</button>
+    <button type="button" id="toggle">Begin Real Time</button>
 
     <script type="text/javascript">
         var dontRun;
@@ -114,7 +114,7 @@
 
             if (freeze == 0) {
                 freeze = 1;
-                d3.select(this).text("Unfreeze Vis")
+                d3.select(this).text("Real Time")
             } else {
                 freeze = 0;
                 d3.select(this).text("Freeze Vis")
