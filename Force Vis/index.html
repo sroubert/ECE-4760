@@ -51,6 +51,10 @@
             z-index: -1;
         }
         
+        #toggle {
+            font-size: 20px;
+        }
+        
         h1 {
             font-size: 60px;
             padding-top: 30px;
@@ -71,7 +75,7 @@
             margin: 0px;
         }
     </style>
-    <title>hi</title>
+    <title>ECE 4760</title>
 </head>
 
 <body>
@@ -90,6 +94,7 @@
     </div>
 
 
+    <button type="button" id="toggle">Freeze Vis</button>
 
     <script type="text/javascript">
         var dontRun;
@@ -101,6 +106,23 @@
     </script>
 
     <script>
+        var freeze = 0;
+
+        var button = d3.select("#toggle");
+
+        button.on("click", function (d) {
+
+            if (freeze == 0) {
+                freeze = 1;
+                d3.select(this).text("Unfreeze Vis")
+            } else {
+                freeze = 0;
+                d3.select(this).text("Freeze Vis")
+
+            }
+
+        })
+
         var svg = d3.select("#hand").append("svg")
             .attr("width", function (d) {
                 return 500;
@@ -116,12 +138,12 @@
 
         var xCenter = [70, 180, 253, 325, 397,
                       390, 325, 250, 185,
-                      355, 285, 225, 
+                      355, 285, 225,
                       255, 285];
 
         var yCenter = [230, 70, 50, 70, 120,
                       230, 230, 230, 230,
-                      285, 285, 285, 
+                      285, 285, 285,
                       325, 365];
 
         for (i = 1; i < 15; i++) {
@@ -163,14 +185,14 @@
 
         var inter = setInterval(function () {
 
-            //if (file.exists) {
-            updateData();
-            // }
+            if (freeze != 0) {
+                updateData();
+            }
         }, 100);
 
-        function include(arr,obj) {
-    return (arr.indexOf(obj) != -1);
-}
+        function include(arr, obj) {
+            return (arr.indexOf(obj) != -1);
+        }
 
         function updateCircles(sensorData) {
 
@@ -204,38 +226,37 @@
                                             return smallResistanceToColor(Math.log(sensorData.R));
                                         }*/
 
-if (include(hands,sensorID)){
-                    if (sensorData.R > 200000) {
-                        return resistanceToColorHands(Math.log(200000));
-                    } else if (sensorData.R < 3000) {
-                        return resistanceToColorHands(Math.log(3000));
+                    if (include(hands, sensorID)) {
+                        if (sensorData.R > 200000) {
+                            return resistanceToColorHands(Math.log(200000));
+                        } else if (sensorData.R < 3000) {
+                            return resistanceToColorHands(Math.log(3000));
+                        } else {
+                            return resistanceToColorHands(Math.log(sensorData.R));
+                        };
+                    } else if (include(badPalms, sensorID)) {
+
+                        if (sensorData.R > 700000) {
+                            return resistanceToColorBadPalm(Math.log(700000));
+                        } else if (sensorData.R < 600000) {
+                            return resistanceToColorBadPalm(Math.log(600000));
+                        } else {
+                            return resistanceToColorBadPalm(Math.log(sensorData.R));
+                        };
+
                     } else {
-                        return resistanceToColorHands(Math.log(sensorData.R));
-                    }; 
-                } else if  (include(badPalms,sensorID)){
-
-                    if (sensorData.R > 700000) {
-                        return resistanceToColorBadPalm(Math.log(700000));
-                    } else if (sensorData.R < 600000) {
-                        return resistanceToColorBadPalm(Math.log(600000));
-                    } else {
-                        return resistanceToColorBadPalm(Math.log(sensorData.R));
-                    }; 
-
-                }
-                else{
-                    if (sensorData.R > 200000) {
-                        return resistanceToColorPalm(Math.log(200000));
-                    } else if (sensorData.R < 3000) {
-                        return resistanceToColorPalm(Math.log(3000));
-                    } else {
-                        return resistanceToColorPalm(Math.log(sensorData.R));
-                    }; 
+                        if (sensorData.R > 200000) {
+                            return resistanceToColorPalm(Math.log(200000));
+                        } else if (sensorData.R < 3000) {
+                            return resistanceToColorPalm(Math.log(3000));
+                        } else {
+                            return resistanceToColorPalm(Math.log(sensorData.R));
+                        };
 
 
 
 
-                }
+                    }
 
                 });
 
