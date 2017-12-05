@@ -115,14 +115,14 @@
             .attr("width", 500);
 
         var xCenter = [70, 180, 253, 325, 397,
-                      185, 250, 325, 390,
-                      225, 285, 355, 315,
-                      285];
+                      390, 325, 250, 185,
+                      355, 285, 225, 
+                      255, 285];
 
         var yCenter = [230, 70, 50, 70, 120,
                       230, 230, 230, 230,
-                      285, 285, 285, 325,
-                      365];
+                      285, 285, 285, 
+                      325, 365];
 
         for (i = 1; i < 15; i++) {
             svg.append("circle")
@@ -168,6 +168,10 @@
             // }
         }, 100);
 
+        function include(arr,obj) {
+    return (arr.indexOf(obj) != -1);
+}
+
         function updateCircles(sensorData) {
 
             var sensorID = sensorData.Sensor;
@@ -182,6 +186,11 @@
                 //console.log("sensor 6 resistance is " + sensorData.R)
             }
 
+            var hands = ["Sensor1", "Sensor2", "Sensor3", "Sensor4", "Sensor5"];
+
+            var badPalms = ["Sensor11", "Sensor12", "Sensor13"];
+
+
             selectedCircle
                 .transition()
                 .style("fill", function (d) {
@@ -195,13 +204,38 @@
                                             return smallResistanceToColor(Math.log(sensorData.R));
                                         }*/
 
+if (include(hands,sensorID)){
                     if (sensorData.R > 200000) {
-                        return resistanceToColor(Math.log(200000));
+                        return resistanceToColorHands(Math.log(200000));
                     } else if (sensorData.R < 3000) {
-                        return resistanceToColor(Math.log(3000));
+                        return resistanceToColorHands(Math.log(3000));
                     } else {
-                        return resistanceToColor(Math.log(sensorData.R));
-                    };
+                        return resistanceToColorHands(Math.log(sensorData.R));
+                    }; 
+                } else if  (include(badPalms,sensorID)){
+
+                    if (sensorData.R > 700000) {
+                        return resistanceToColorBadPalm(Math.log(700000));
+                    } else if (sensorData.R < 600000) {
+                        return resistanceToColorBadPalm(Math.log(600000));
+                    } else {
+                        return resistanceToColorBadPalm(Math.log(sensorData.R));
+                    }; 
+
+                }
+                else{
+                    if (sensorData.R > 200000) {
+                        return resistanceToColorPalm(Math.log(200000));
+                    } else if (sensorData.R < 3000) {
+                        return resistanceToColorPalm(Math.log(3000));
+                    } else {
+                        return resistanceToColorPalm(Math.log(sensorData.R));
+                    }; 
+
+
+
+
+                }
 
                 });
 
@@ -209,17 +243,19 @@
         }
 
 
-        var resistanceToColor = d3.scaleLinear()
+        var resistanceToColorHands = d3.scaleLinear()
             .domain([Math.log(200000), Math.log(10000), Math.log(3000)])
             .range(["#32cd32", "yellow", "red"])
 
-        var largeResistanceToColor = d3.scaleLinear()
-            .domain([Math.log(200000), Math.log(10000)])
-            .range(["lime green", "yellow"])
+        var resistanceToColorPalm = d3.scaleLinear()
+            .domain([Math.log(200000), Math.log(30000), Math.log(3000)])
+            .range(["#32cd32", "yellow", "red"])
 
-        var smallResistanceToColor = d3.scaleLinear()
-            .domain([Math.log(10000), Math.log(600)])
-            .range(["yellow", "red"])
+        var resistanceToColorBadPalm = d3.scaleLinear()
+            .domain([Math.log(700000), Math.log(650000), Math.log(600000)])
+            .range(["#32cd32", "yellow", "red"])
+
+
 
 
         function updateData() {

@@ -40,8 +40,11 @@ macAddress = '98:d3:31:fd:31:27'
 port = 1 
 
 # Startup bluetooth connection:
+print("Attempting to connect...")
 s = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 s.connect((macAddress,port))
+print("Connected!" )
+time.sleep(0.5)
 
 decodedData = ""
 jsonData = {}
@@ -50,7 +53,7 @@ jsonData['sensorData'] = []
 try:
 
 	while True:
-		time.sleep(0.075)
+		time.sleep(0.02)
 		data = s.recv(1024)
 		#print( "Data:  " + str(data))
 		val = len(data)
@@ -81,7 +84,7 @@ try:
 			jsonData = {}
 			json.dumps(jsonData)
 			jsonData['sensorData'] = []
-			time.sleep(0.1)
+			time.sleep(0.05)
 
 		else:
 
