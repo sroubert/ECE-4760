@@ -50,7 +50,7 @@ jsonData['sensorData'] = []
 try:
 
 	while True:
-		time.sleep(0.1)
+		time.sleep(0.075)
 		data = s.recv(1024)
 		#print( "Data:  " + str(data))
 		val = len(data)
@@ -62,11 +62,11 @@ try:
 			#dataRay =[]
 			#print( "Data: ", str(decodedData).split())
 
-			for i in range(len(rayData)):
+			for i in range(15):
 				decodedData = decodedData
 				#l = 
-				p = rayData[0][0]
-				num = rayData[i][1:]
+				#p = rayData[0][0]
+				num = rayData[i][:]
 				jsonData['sensorData'].append({'Sensor' : 'Sensor' + str(i+1),  'R' : int(num)})
 				#dataRay.append(num)
 
