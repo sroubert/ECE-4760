@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html>
+
+<!-- sr949, dc652, kat86 Project 2 -->
+
+<head>
+
+    <meta charset="utf-8">
+    <!-- Weather icons from http://www.freepik.com and https://www.amcharts.com/free-animated-svg-weather-icons/ -->
+    <title>ECE 4760 Final Project</title>
+
+    <link type="text/css" rel="stylesheet" href="https://fast.fonts.net/cssapi/c1ece602-4b8f-4767-a71f-aa828be38869.css" />
+
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+
+
+    <style>
+        body {
+            font-family: "LinotypeUniversW01-Cn";
+            padding: 10px 0;
+            background-color: "white";
+        }
+        
+        h1 {
+            font-family: "LinotypeUniversW01-Cn";
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 35pt;
+            padding: 0;
+            margin: 0;
+            padding-top: 10px;
+            line-height: 1.2em;
+            text-align: center;
+        }
+        
+        .center {
+            margin: auto;
+            width: 75%;
+            padding: 10px;
+            text-align: left;
+            padding-bottom: 20px;
+        }
+        
+        ] h2 {
+            text-align: left;
+            padding-top: 10px;
+        }
+        
+        h3 {
+            font-family: "LinotypeUniversW01-Cn";
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 25pt;
+        }
+        
+        p {
+            font-size: 15pt;
+        }
+        
+        #highlight {
+            color: #89cff0;
+            font-weight: 600;
+        }
+        
+        div.circle {
+            width: 40px;
+            height: 40px;
+            border: solid #585858 2px;
+            border-radius: 30px;
+            color: #585858;
+            text-align: center;
+            font-size: 32px;
+            margin: 23px 20px 0 0;
+            float: left;
+            font-weight: bold;
+        }
+        
+        div.circleText {
+            padding-top: 3px;
+        }
+        
+        input {
+            padding: 3px;
+            font-size: 12pt;
+        }
+        
+        button {
+            border: solid #585858 2px;
+            color: #585858;
+            background-color: #eeeeee;
+            text-align: center;
+            font-family: "LinotypeUniversW01-Cn";
+            font-weight: 600;
+            font-size: 15pt;
+            padding: 5px;
+            margin-left: 30px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        button:hover {
+            background-color: #848484;
+            color: white;
+        }
+        
+        #label {
+            padding-left: 30px;
+        }
+        
+        .container {
+            width: 1300px;
+            display: flex;
+            padding-left: 50px;
+            padding-bottom: 10px;
+        }
+        
+        .left {
+            width: 300px;
+            height: auto;
+            float: left;
+        }
+        
+        .right {
+            width: 900px;
+            float: left;
+            height: auto;
+            padding-top: 25px;
+            font-size: 15pt;
+        }
+        
+        image {
+            border: solid red 1px;
+        }
+        
+        .states {
+            fill: none;
+            stroke: #fff;
+            stroke-linejoin: round;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <h1>ECE 4760: Real Time Force Visualization</h1>
+
+    <h2 style="text-align: center">By: Sebastian Roubert, Jonah Okike-Hephzibah, Rahul Desai</h2>
+
+    <p style="padding: 0 25px">As of 2017, there are <span id="highlight">1,000,000 annual cases of work-related musculoskeletal injuries in the United States</span> with over <span id="highlight">$54 billion total associated cost</span>. <a href="http://orthofit.tech">OrthoFit, Inc.</a> is a local Ithaca startup that aims to "make workplaces safer by preventing musculoskeletal injuries and improving ergonomics evaluations, with [their] smart wearables and software solutions". We decided to use our final project to develop a smart wearable prototype connected to an internet of things project.</p>
+
+
+    <!-- Instructions -->
+
+    <div class="center" style="padding: 0 25px; padding-top: 10px; margin-top: -10px">
+        <h3>Introduction</h3>
+        <p style="margin-top: -20px">Just start typing here</p>
+    </div>
+
+    <!-- Content -->
+    <div class="center" style="padding: 0 25px; padding-top: 10px; margin-top: -10px">
+        <h3>Other stuff</h3>
+        <p style="margin-top: -20px">Just start typing here</p>
+    </div>
+
+
+
+
+
+
+</body>
+
+</html>
