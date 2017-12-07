@@ -85,14 +85,12 @@
     </div>
 
     <div id="hand">
-        <!--  <img src="handImage.jpg" id="logo"> -->
     </div>
 
 
     <div id="testCircle">
 
     </div>
-
 
     <button type="button" id="toggle">Begin Real Time</button>
 
@@ -108,10 +106,13 @@
     <script>
         var freeze = 0;
 
+        //selecting button to toggle between real time and freezing
+        //the visualization
         var button = d3.select("#toggle");
 
-        button.on("click", function (d) {
 
+        //creating a case for button click event
+        button.on("click", function (d) {
             if (freeze == 0) {
                 freeze = 1;
                 d3.select(this).text("Freeze Vis")
@@ -120,9 +121,9 @@
                 d3.select(this).text("Real Time")
 
             }
-
         })
 
+        //Creating circles on hand logo
         var svg = d3.select("#hand").append("svg")
             .attr("width", function (d) {
                 return 500;
@@ -130,7 +131,6 @@
             .attr("height", function (d) {
                 return 530;
             });
-
         svg.append("image")
             .attr("xlink:href", "handImage.jpg")
             .attr("height", 530)
@@ -146,6 +146,7 @@
                       285, 285, 285,
                       325, 365];
 
+        //appending circles with random colors to begin with
         for (i = 1; i < 15; i++) {
             svg.append("circle")
                 .attr("r", 15)
@@ -171,18 +172,8 @@
 
         }
 
-        var jsonData;
 
-        // var file = new File("data15.txt");
-        //var result = file.open('r');
-
-        //  function updateData() {
-        /*
-                    if (file.exists) {
-                        console.log("file exists");
-                    }
-        */
-
+        //calling updateData() every 100 ms
         var inter = setInterval(function () {
 
             if (freeze != 0) {
@@ -190,41 +181,33 @@
             }
         }, 100);
 
+        //function to check if element is in array
         function include(arr, obj) {
             return (arr.indexOf(obj) != -1);
         }
 
+
+        //function to update circles to corresponding sensor
         function updateCircles(sensorData) {
+
 
             var sensorID = sensorData.Sensor;
 
-
-
+            //selecting circle by sensor ID
             var selectedCircle = d3.select("#".concat(sensorID));
 
 
-            if (sensorID == "Sensor6") {
-
-                //console.log("sensor 6 resistance is " + sensorData.R)
-            }
-
+            //hand sensors
             var hands = ["Sensor1", "Sensor2", "Sensor3", "Sensor4", "Sensor5"];
 
+            //badly connected palm sensors
             var badPalms = ["Sensor11", "Sensor12", "Sensor13"];
 
 
             selectedCircle
-                .transition()
+                .transition() //this allows smooth transitions between colors
                 .style("fill", function (d) {
-                    /*                    if (sensorData.R > 10000) {
-                                            if (sensorID == "Sensor6") {
-                                                console.log(largeResistanceToColor(Math.log(sensorData.R)))
-                                            }
-                                            
-                                            return largeResistanceToColor(Math.log(sensorData.R));
-                                        } else {
-                                            return smallResistanceToColor(Math.log(sensorData.R));
-                                        }*/
+
 
                     if (include(hands, sensorID)) {
                         if (sensorData.R > 200000) {
@@ -252,18 +235,12 @@
                         } else {
                             return resistanceToColorPalm(Math.log(sensorData.R));
                         };
-
-
-
-
                     }
-
                 });
-
-
         }
 
 
+        //creating scales mapping resistance to colors
         var resistanceToColorHands = d3.scaleLinear()
             .domain([Math.log(200000), Math.log(10000), Math.log(3000)])
             .range(["#32cd32", "yellow", "red"])
@@ -282,28 +259,16 @@
         function updateData() {
 
 
+            //unpackage data
             d3.json("data15.txt", function (error, data) {
 
 
-
-                jsonData = data;
-
-
-                //console.log(typeof (data))
-
+                //if received valid data, call updateCircles function
                 if (typeof (data) != "undefined") {
                     data.sensorData.forEach(updateCircles);
 
                 }
 
-
-
-
-
-
-
-
-                //dontRun = 0;
             });
 
 

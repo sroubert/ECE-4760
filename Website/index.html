@@ -238,7 +238,14 @@
         </table>
         <p class="caption">Table ??: The theoretical minimum and maximum resistance values that can be read for each supplied current are tabulated above.</p>
 
-        <p>Since the circuitry of the voltage divider was a little more complicated, and we were able to achieve a wider range of resistance with the CTMU, we decided to proceed with the CTMU method to power the FSRs'. At this point, we began to design the schematic of PCB that would serve as the glove circuitry. Thus, we moved on from the original FSRs provided by Adafruit to adhesive FSRs specifically made for the PCB.</p>
+        <p>We then tested both methods using the mux so that we could connect multiple sensors via one ADC channel. The mux had 8 different channel input/outputs which needed to be selected by toggling 3 channel select bits (A,B, and C). By connecting the ABC pins of the mux to the PIC32, we were able to toggle the channel that was directly connected to the communication pin of the mux.Thus, for the CTMU method, the current would flow through the COM pin into the selected channel which is connected to the FSR. For the voltage divider method, the direct ADC input was replaced with a connection to one of the mux channel inputs. Due to internal resistance in the mux, we found that the resistance values we were reading without the mux had changed. This meant that we had to re-characterize the readings for both methods.</p>
+
+        <img class="figure" src="muxSchematic.jpeg">
+        <p class="caption">Figure ??: Schematic of the MUX we used.</p>
+
+        <p>To re-characterize the resistance scale for the mux, we took resistors of known value and recorded the corresponding ADC value. However, we did not want to do this for both methods and decided to cut one out. Since the circuitry of the voltage divider was a little more complicated, and we were able to achieve a wider range of resistance with the CTMU, we decided to proceed with the CTMU method to power the FSRs.</p>
+
+        <p>To characterize the new CTMU resistance we placed resistors of known resistance into the mux channels. We did this for all four current options which produced the following resistance v. ADC curves:</p>
 
         <img class="figure" src="eagleCadPCB.png">
         <p class="caption">Figure ??: Eagle CAD of the PCB is shown above. Note how each sensor will be in series with a power rail and ground rail.</p>
@@ -289,6 +296,60 @@
         <img class="figure" src="sensorResVsPres.PNG">
         <p class="caption">Figure ??: Resistance versus pressure for our specially made, highly calibrated force sensitive resistors.</p>
 
+        <p>As seen in the image above, pressure varies logarithmically with resistance. Once the resistance data is dumped into the JSON file by the Python script, we use Javascript to extract the data. We then utilized the D3.js's scaling functionality to map resistance to pressure. Specifically, we used linear scaling for logarithmic resistance inputs. See below:</p>
+
+        <p>//creating scales mapping resistance to colors
+            <br> var resistanceToColorHands = d3.scaleLinear()
+            <br> .domain([Math.log(200000), Math.log(10000), Math.log(3000)])
+            <br> .range(["#32cd32", "yellow", "red"])</p>
+
+        <p>This allowed a linear relationship between a user's pressure input to the circle color output on the screen. The 200000, 10000, and 3000 seen above were resistance values that we experimentally found to map to low grip, middle grip, and high grip, respectively.</p>
+
+        <p>To ensure that there was no jumpiness in circles we utilized D3.js's transition functionality. See below:</p>
+
+        <div style="margin: 0 auto">
+            <p>selectedCircle
+                <br> .transition() //this allows smooth transitions between colors
+                <br> .style("fill", function (d) {...
+            </p>
+
+        </div>
+
+        <p>This ensured that whenever colors were changing, there was a smooth gradient transition.</p>
+
+        <p>We also utilized a freezing functionality. The user could toggle between real time visualization of freezing the pressure mapping at any time, for any mapping of their choosing. This will allow OrthoFit's clients to view data about their clients for any given time point. This was done by the following:</p>
+
+        <p>
+
+            //creating a case for button click event
+            <br> button.on("click", function (d) {
+            <br>
+            <br> if (freeze == 0) {
+            <br> freeze = 1;
+            <br> d3.select(this).text("Freeze Vis")
+            <br>
+            <br> } else {
+            <br> freeze = 0;
+            <br> d3.select(this).text("Real Time")
+            <br> }
+            <br> })
+            <br>
+
+        </p>
+
+        <p>This entire web application system was updated every 100ms with the following function:</p>
+
+        <p>
+            //calling updateData() every 100 ms
+            <br> var inter = setInterval(function () {
+            <br>
+            <br> if (freeze != 0) {
+            <br> updateData();
+            <br> }
+            <br> }, 100);
+            <br>
+
+        </p>
 
 
     </div>
