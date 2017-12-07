@@ -8,7 +8,6 @@ import json
 
 def writeToFile( data1 ):
 
-	#path1 = r"C:\Users\Jonah\OneDrive - Cornell University\Fall 2017\ECE 4760\Final Project\Server\ "
 	try:
 		with open('data15.csv', 'w',  newline='') as f:
 
@@ -19,19 +18,15 @@ def writeToFile( data1 ):
 
 def writeToFile1( data1 ):
 
-	#path1 = r"C:\Users\Jonah\OneDrive - Cornell University\Fall 2017\ECE 4760\Final Project\Server\ "
 	while True:
 		try:
 			with open('data15.txt', 'r+' ) as f:
 
-				#writer = csv.writer(f, delimiter=',')
-				#writer.writerow(data1) 
 				f.seek(0,0)
 				f.truncate()
 				json.dump( data1, f)
 			break
 		except:
-			#print("Data not written")
 			break
 			print( "Trying again..")
 
@@ -46,6 +41,7 @@ s.connect((macAddress,port))
 print("Connected!" )
 time.sleep(0.5)
 
+# Create the json data variable
 decodedData = ""
 jsonData = {}
 jsonData['sensorData'] = []
@@ -53,33 +49,32 @@ jsonData['sensorData'] = []
 try:
 
 	while True:
+		# Delay for 20 ms
 		time.sleep(0.02)
+
+		# This receives the data that is sent from the PIC
 		data = s.recv(1024)
-		#print( "Data:  " + str(data))
+
+		# This is to check if the end of the transmission contains the end line character
 		val = len(data)
 		if (data[val-1] == 10):
 
+			# We now have the data for all fourteen sensors and can now decode then split them up into 14 individual readings
 			decodedData = decodedData + data[0:val-1].decode('utf-8', "ignore")
-			#print( "Decoded Data: " + str(decodedData) )
 			rayData = str(decodedData).split()
-			#dataRay =[]
-			#print( "Data: ", str(decodedData).split())
 
-			for i in range(15):
+			# This for loop parses the data into a json object
+			for i in range(14):
 				decodedData = decodedData
-				#l = 
-				#p = rayData[0][0]
 				num = rayData[i][:]
 				jsonData['sensorData'].append({'Sensor' : 'Sensor' + str(i+1),  'R' : int(num)})
-				#dataRay.append(num)
 
-			timin = time.time()
+			# This function writes the data to the json file data15.txt
 			writeToFile1(jsonData)
-			timEnd = time.time()
 			sys.stdout.flush()
+
 			print( "Json Data:" , jsonData)
 			print("\n")
-			print("Duration: " + str(timEnd-timin) + "\n")
 			decodedData = ""
 			jsonData = {}
 			json.dumps(jsonData)
@@ -89,7 +84,6 @@ try:
 		else:
 
 			decodedData = decodedData + data.decode('utf-8', "ignore")
-		#print("Data", data.decode('utf-8', "ignore"))
 
 except Exception as e:
 	print( "Exception:  " + str(e))
