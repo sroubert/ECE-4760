@@ -57,6 +57,7 @@
         .figure {
             display: block;
             margin: 0 auto;
+            max-width: 100%;
         }
         
         h2 {
@@ -180,7 +181,7 @@
 
     <h2 style="text-align: center">By: Sebastian Roubert, Jonah Okike-Hephzibah, Rahul Desai</h2>
 
-    <p style="padding: 0 25px">As of 2017, there are <span id="highlight">1,000,000 annual cases of work-related musculoskeletal injuries in the United States</span> with over <span id="highlight">$54 billion total associated cost</span>. <a href="http://orthofit.tech">OrthoFit, Inc.</a> is a local Ithaca startup that aims to "make workplaces safer by preventing musculoskeletal injuries and improving ergonomics evaluations, with [their] smart wearables and software solutions". We decided to use our final project to develop a smart wearable prototype connected to an internet of things project.</p>
+    <p style="padding: 0 25px">As of 2017, there are <span id="highlight">1,000,000 annual cases of work-related musculoskeletal injuries in the United States</span> with over <span id="highlight">$54 billion total associated cost</span>. <a href="http://orthofit.tech">OrthoFit, Inc.</a> is a local Ithaca startup that aims to "make workplaces safer by preventing musculoskeletal injuries and improving ergonomics evaluations, with [their] smart wearables and software solutions". We decided to use our final project to develop a smart wearable prototype as part of a greater internet of things project.</p>
 
 
     <!-- Introduction -->
@@ -245,14 +246,33 @@
 
         <p>To re-characterize the resistance scale for the mux, we took resistors of known value and recorded the corresponding ADC value. However, we did not want to do this for both methods and decided to cut one out. Since the circuitry of the voltage divider was a little more complicated, and we were able to achieve a wider range of resistance with the CTMU, we decided to proceed with the CTMU method to power the FSRs.</p>
 
-        <p>To characterize the new CTMU resistance we placed resistors of known resistance into the mux channels. We did this for all four current options which produced the following resistance v. ADC curves:</p>
+        <p>To characterize the new CTMU resistance we placed resistors of known resistance into the mux channels. We did this for all four current options which produced the following resistance vs ADC curves:</p>
+
+        <img class="figure" src="adc550.jpeg">
+        <p class="caption">Figure ??: Resistance versus ADC values curves for 550 microamps through the MUX.</p>
+
+        <img class="figure" src="adc-55.jpeg">
+        <p class="caption">Figure ??: Resistance versus ADC values curves for 0.55 microamps through the MUX.</p>
+
+        <img class="figure" src="adc5-5.jpeg">
+        <p class="caption">Figure ??: Resistance versus ADC values curves for 5.5 microamps through the MUX.</p>
+
+        <img class="figure" src="adc55.jpeg">
+        <p class="caption">Figure ??: Resistance versus ADC values curves for 55 microamps through the MUX.</p>
+
+
+
+
+        <p>We determined that we would not be able to use the 0.55 microamp CTMU supply to power these resistors. As shown in the 0.55 microamp supplied curve, the ADC saturated around 200 ADC units. This meant that we were not able to get accurate readings using this current. Thus, we decided to only use the remaining current levels.</p>
+
+        <p>This lead directly into the design of the PCB schematic that would serve as the gloves circuitry. Thus, we moved on from the original FSRs provided by Adafruit to adhesive FSRs specifically made for the PCB.</p>
 
         <img class="figure" src="eagleCadPCB.png">
         <p class="caption">Figure ??: Eagle CAD of the PCB is shown above. Note how each sensor will be in series with a power rail and ground rail.</p>
 
+        <p>The purpose of this PCB was to serve as the primary interface for the pressure sensors on the glove. These sensors were wired directly into the muxes input/output channels of the mux (7 sensors on each mux)</p>
 
-        <p>The purpose of this PCB was to serve as the primary interface for the pressure sensors on the glove.</p>
-
+        <p>To setup the HC-06 for bluetooth communication, we made use of the UART pins on the PIC32 (Rx: RA1, Tx: RB10). We first determined whether the UART transmissions actually worked using a serial cable. Once we determined that this was functioning correctly, we moved onto setting up the bluetooth module. The connection for this was a little different from the serial cable connection. The transmit (Tx) pin for the module was connected to RA1 and the receive (Rx) pin to the RB10. </p>
 
 
         <h2>Software</h2>
@@ -365,6 +385,17 @@
 
     </div>
 
+    <!-- Conclusion -->
+    <div class="center" style="padding: 0 25px; padding-top: 10px; margin-top: -10px">
+        <h3>Conclusion</h3>
+        <p style="margin-top: -20px">We were successful in implementing the Real Time Force Visualization by mapping the impending pressure on the web app. All the user needs to do is to wear the glove while performing arduous tasks and the glove will show how much stress is applied on the hand. The glove has 14 FSR which are finely calibrated and are used to get the resistance values corresponding to the pressure applied on that specific part of the hand. The resistance values are measured using the CTMU approach, which get converted into digital by the ADC and are then processed by the controller. These values are sent to the PC using the HC-06 Bluetooth module using a python script, which simultaneously hosts a local server to store the files in a text file. These files are converted into a JSON file, which is then used by the HTML file to visualize the pressure mappings of each sensor on the hand. A 'Freeze mode' was implemented to track the pressure mappings at any given time to check for any abnormalities with the 'Real Time' mode mapping the hand pressure readings continuously.</p>
+
+        <p>The initial idea had matrix array based Force sensitive pad in mind but due to the ghosting problem, it was decided to switch to the Force Sensitive Resistors as they were discrete and could be accessed independently. There were problems in multiplexing the sensor signals in the initial interfacing stage, which was later found to be a grounding problem. The hardware had to be organized and labelled to keep track of all the sensor channels for debugging purposes. As the PCB was pliable, care had to be taken while soldering the wires to it, as it could easily lead to discontinuities. We were not able to transition to the glove as there was probably some problem with the soldering and also the glove itself was too small to fit the hand but the prototype PCB with headers attached to it worked very well. </p>
+
+        <p>
+            Further improvements could be made by separating out the PCB on the palm region and the fingers as during a bend, it was observed that the PCB would get crumpled which might affect the wire tracing on it. These parts can be joined by a conductive thread to get better flexibility. Additional flex sensors could be used on the back of the hand to measure the bend of the fingers to get an overall idea of the stress impending on the hand.
+        </p>
+    </div>
 
     <!-- Standards -->
     <div class="center" style="padding: 0 25px; padding-top: 10px; margin-top: -10px">
@@ -391,6 +422,12 @@
 
         <h2>C: Code</h2>
 
+        <a href="finalCode.c">Final C Code</a>
+        <br>
+        <a href="clientFor15.py">Python Script</a>
+        <br>
+        <a href="index%202.html">Data Visualization Web Application (view page source for html file)</a>
+        <br>
         <h2>D: Cost</h2>
 
         <table class="tg">
